@@ -1,5 +1,4 @@
 import express from "express";
-import "reflect-metadata";
 import cors from "cors";
 
 const app = express();
