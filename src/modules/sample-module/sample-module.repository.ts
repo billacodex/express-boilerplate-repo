@@ -7,14 +7,7 @@ export class SampleModuleRepository extends PostgresRepository<SampleModuleEntit
     super(configurations().postgres.sampleModuleTable);
   }
 
-  protected docToEntity(
-    doc: any
-  ): SampleModuleEntity {
-    const metadata = new SampleModuleEntity({
-      uuid: doc.get("uuid") || "",
-      fullName: doc.get("full_name") || "",
-    } as SampleModuleEntity);
-
-    return metadata;
+  protected docToEntity(doc: any): SampleModuleEntity {
+    return SampleModuleEntity.fromRequest(doc);
   }
 }

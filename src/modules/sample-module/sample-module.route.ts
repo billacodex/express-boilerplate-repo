@@ -37,6 +37,31 @@ sampleModuleRouter.post("/", validateRequest(SampleModuleSchema), async (req: Re
   }
 });
 
+sampleModuleRouter.put("/", validateRequest(SampleModuleSchema), async (req: Request, res: Response) => {
+  try {
+    const sampleModuleRequest = req.body;
+
+    const payload = await sampleModuleController.updateSampleModule(
+      sampleModuleRequest,
+    );
+
+    return sendSuccessResponse({
+      type: ResponseType.HTTP,
+      statusCode: 200,
+      payload: payload,
+      res,
+    });
+  } catch (error: unknown) {
+    const err = error as Error;
+    console.error(error);
+    return sendErrorResponse({
+      type: ResponseType.HTTP,
+      payload: err.message,
+      res,
+    });
+  }
+});
+
 sampleModuleRouter.get("/", async (req: Request, res: Response) => {
   try {
     const payload = await sampleModuleController.getAll();

@@ -8,13 +8,13 @@ export class SampleModuleController {
     this.sampleModuleRepository = new SampleModuleRepository();
   }
 
-  async createSampleModule(req: SampleModuleRequest) {
-    const sampleModule = new SampleModuleEntity({
-      fullName: req.full_name,
-    } as SampleModuleEntity);
-    await this.sampleModuleRepository.create(sampleModule);
+  async createSampleModule(newSampleModule: SampleModuleRequest) {
+    return await this.sampleModuleRepository.create(SampleModuleEntity.fromRequest(newSampleModule));
+  }
 
-    return sampleModule;
+  async updateSampleModule(updatedSampleModule: SampleModuleRequest) {
+    const sampleModule = SampleModuleEntity.fromRequest(updatedSampleModule);
+    return await this.sampleModuleRepository.update(sampleModule.uuid, sampleModule);
   }
 
   async deleteSampleModule(uuid: string) {
