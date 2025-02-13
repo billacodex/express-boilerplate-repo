@@ -25,11 +25,11 @@ export class SampleModuleController {
   }
 
   async getAll() {
-    const modules: SampleModuleEntity[] = await this.sampleModuleRepository.find();
+    const sampleModules: SampleModuleEntity[] = await this.sampleModuleRepository.find();
 
-    if (!modules || modules.length <= 0) return [];
+    if (!sampleModules || sampleModules.length <= 0) return [];
 
-    return modules.map((sampleModule: SampleModuleEntity) => sampleModule.toTransformedObject());
+    return sampleModules.map((sampleModule: SampleModuleEntity) => sampleModule.toTransformedObject());
   }
 
   async getOne(uuid: string) {
