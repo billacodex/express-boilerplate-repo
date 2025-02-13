@@ -1,0 +1,40 @@
+import {SampleModuleRepository} from "./sample-module.repository";
+import {SampleModuleRequest} from "./dto/sample-module-request.dto";
+import {SampleModuleEntity} from "./entities/sample-module.entity";
+export class SampleModuleController {
+  sampleModuleRepository: SampleModuleRepository;
+
+  constructor() {
+    this.sampleModuleRepository = new SampleModuleRepository();
+  }
+
+  async createSampleModule(req: SampleModuleRequest) {
+    const sampleModule = new SampleModuleEntity({
+      fullName: req.full_name,
+    } as SampleModuleEntity);
+    await this.sampleModuleRepository.create(sampleModule);
+
+    return sampleModule;
+  }
+
+  async deleteSampleModule(uuid: string) {
+    const sampleModule = await this.sampleModuleRepository.findOne(uuid);
+    if (!sampleModule) throw new Error("<SampleModule> not found in database !!!");
+
+    await this.sampleModuleRepository.delete(uuid);
+  }
+
+  async getAll() {
+    const modules: SampleModuleEntity[] = await this.sampleModuleRepository.find();
+
+    if (!modules || modules.length <= 0) return [];
+
+    return modules.map((sampleModule: SampleModuleEntity) => sampleModule.toTransformedObject());
+  }
+
+  async getOne(uuid: string) {
+    const sampleModule: SampleModuleEntity = await this.sampleModuleRepository.findOne(uuid);
+
+    return sampleModule.toTransformedObject();
+  }
+}
