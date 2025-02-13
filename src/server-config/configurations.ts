@@ -18,7 +18,7 @@ pool.on("error", (err, client) => {
 
 export default () => ({
   postgres: {
-    sampleModuleTable: "admins",
+    sampleModuleTable: "sampleModule",
     pool: pool,
   },
 });

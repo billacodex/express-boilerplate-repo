@@ -10,13 +10,13 @@ import {SampleModuleSchema} from "./dto/sample-module-request.dto";
 
 const sampleModuleRouter = Router();
 
-const moduleController = new SampleModuleController();
+const sampleModuleController = new SampleModuleController();
 
-sampleModuleRouter.post("/v1/", validateRequest(SampleModuleSchema), async (req: Request, res: Response) => {
+sampleModuleRouter.post("/v1/sampleModule/", validateRequest(SampleModuleSchema), async (req: Request, res: Response) => {
   try {
     const sampleModuleRequest = req.body;
 
-    const payload = await moduleController.createSampleModule(
+    const payload = await sampleModuleController.createSampleModule(
       sampleModuleRequest,
     );
 
@@ -37,9 +37,9 @@ sampleModuleRouter.post("/v1/", validateRequest(SampleModuleSchema), async (req:
   }
 });
 
-sampleModuleRouter.get("/v1/", async (req: Request, res: Response) => {
+sampleModuleRouter.get("/v1/sampleModule/", async (req: Request, res: Response) => {
   try {
-    const payload = await moduleController.getAll();
+    const payload = await sampleModuleController.getAll();
 
     return sendSuccessResponse({
       type: ResponseType.HTTP,
@@ -58,7 +58,7 @@ sampleModuleRouter.get("/v1/", async (req: Request, res: Response) => {
   }
 });
 
-sampleModuleRouter.get("/v1/:uuid", async (req: Request, res: Response) => {
+sampleModuleRouter.get("/v1/sampleModule/:uuid", async (req: Request, res: Response) => {
   try {
     const uuid = req.params.uuid;
 
@@ -66,7 +66,7 @@ sampleModuleRouter.get("/v1/:uuid", async (req: Request, res: Response) => {
       throw new Error("UUID is required.");
     }
 
-    const payload = await moduleController.getOne(uuid);
+    const payload = await sampleModuleController.getOne(uuid);
 
     if (!payload) {
       throw new Error("Resource not found.");
@@ -90,12 +90,12 @@ sampleModuleRouter.get("/v1/:uuid", async (req: Request, res: Response) => {
 });
 
 
-sampleModuleRouter.delete("/v1/:uuid", async (req: Request, res: Response) => {
+sampleModuleRouter.delete("/v1/sampleModule/:uuid", async (req: Request, res: Response) => {
   try {
     const uuid = req.params.uuid;
 
     if (!uuid) throw new Error("UUID needed");
-    await moduleController.deleteSampleModule(uuid);
+    await sampleModuleController.deleteSampleModule(uuid);
 
     return sendSuccessResponse({
       type: ResponseType.HTTP,
