@@ -12,7 +12,7 @@ const sampleModuleRouter = Router();
 
 const sampleModuleController = new SampleModuleController();
 
-sampleModuleRouter.post("/v1/sampleModule/", validateRequest(SampleModuleSchema), async (req: Request, res: Response) => {
+sampleModuleRouter.post("/", validateRequest(SampleModuleSchema), async (req: Request, res: Response) => {
   try {
     const sampleModuleRequest = req.body;
 
@@ -37,7 +37,7 @@ sampleModuleRouter.post("/v1/sampleModule/", validateRequest(SampleModuleSchema)
   }
 });
 
-sampleModuleRouter.get("/v1/sampleModule/", async (req: Request, res: Response) => {
+sampleModuleRouter.get("/", async (req: Request, res: Response) => {
   try {
     const payload = await sampleModuleController.getAll();
 
@@ -58,7 +58,7 @@ sampleModuleRouter.get("/v1/sampleModule/", async (req: Request, res: Response) 
   }
 });
 
-sampleModuleRouter.get("/v1/sampleModule/:uuid", async (req: Request, res: Response) => {
+sampleModuleRouter.get("/:uuid", async (req: Request, res: Response) => {
   try {
     const uuid = req.params.uuid;
 
@@ -90,7 +90,7 @@ sampleModuleRouter.get("/v1/sampleModule/:uuid", async (req: Request, res: Respo
 });
 
 
-sampleModuleRouter.delete("/v1/sampleModule/:uuid", async (req: Request, res: Response) => {
+sampleModuleRouter.delete("/:uuid", async (req: Request, res: Response) => {
   try {
     const uuid = req.params.uuid;
 
