@@ -9,7 +9,7 @@ export class SampleModuleController {
   }
 
   async createSampleModule(newSampleModule: SampleModuleRequest) {
-    return await this.sampleModuleRepository.create(SampleModuleEntity.fromRequest(newSampleModule));
+    return (await (this.sampleModuleRepository.create(SampleModuleEntity.fromRequest(newSampleModule)))).toTransformedObject();
   }
 
   async updateSampleModule(updatedSampleModule: SampleModuleRequest) {
