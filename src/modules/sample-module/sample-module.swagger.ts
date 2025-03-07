@@ -73,7 +73,7 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
- *       500:`
+ *       500:
  *         description: Server error
  *         content:
  *           application/json:
