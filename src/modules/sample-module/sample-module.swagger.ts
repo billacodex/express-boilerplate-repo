@@ -14,10 +14,10 @@
  *       required:
  *         - name
  *       properties:
- *         uuid:
+ *         name:
  *           type: string
- *           format: uuid
- *           description: SampleModule UUID (auto-generated if not provided)
+ *           format: string
+ *           description: SampleModule name (auto-generated if not provided)
  *       example:
  *         name: "test"
  *
