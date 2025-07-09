@@ -14,8 +14,8 @@ export abstract class PostgresRepository<T extends IEntity> implements BaseRepos
 
   async create(item: T): Promise<T> {
     const data = item.toDatabaseObject(); // Ensure object serialization
-    const keys = Object.keys(data);
-    const values = Object.values(data);
+    const keys = Object.keys(data || {});
+    const values = Object.values(data || {});
     const placeholders = keys.map((_, index) => `$${index + 1}`).join(", ");
     const query = `INSERT INTO ${this.tableName} (${keys.join(", ")}) VALUES (${placeholders}) RETURNING *`;
 
@@ -30,8 +30,8 @@ export abstract class PostgresRepository<T extends IEntity> implements BaseRepos
 
   async update(uuid: string | number, item: T): Promise<boolean> {
     const data = item.toDatabaseObject();
-    const keys = Object.keys(data);
-    const values = Object.values(data);
+    const keys = Object.keys(data || {});
+    const values = Object.values(data || {});
     const updates = keys.map((col, index) => `${col} = $${index + 1}`).join(", ");
     const query = `UPDATE ${this.tableName} SET ${updates} WHERE uuid = $${keys.length + 1}`;
 
