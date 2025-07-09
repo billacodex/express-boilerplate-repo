@@ -28,25 +28,25 @@ export abstract class PostgresRepository<T extends IEntity> implements BaseRepos
     }
   }
 
-  async update(uuid: string | number, item: T): Promise<boolean> {
+  async update(id: string | number, item: T): Promise<boolean> {
     const data = item.toDatabaseObject();
     const keys = Object.keys(data || {});
     const values = Object.values(data || {});
     const updates = keys.map((col, index) => `${col} = $${index + 1}`).join(", ");
-    const query = `UPDATE ${this.tableName} SET ${updates} WHERE uuid = $${keys.length + 1}`;
+    const query = `UPDATE ${this.tableName} SET ${updates} WHERE id = $${keys.length + 1}`;
 
     try {
-      const result: QueryResult = await this.database.query(query, [...values, uuid]);
+      const result: QueryResult = await this.database.query(query, [...values, id]);
       return result.rowCount !== null && result.rowCount > 0;
     } catch (error: any) {
       throw new Error(`Error updating ${this.tableName}: ${error.message}`);
     }
   }
 
-  async delete(uuid: string | number): Promise<boolean> {
-    const query = `DELETE FROM ${this.tableName} WHERE uuid = $1`;
+  async delete(id: string | number): Promise<boolean> {
+    const query = `DELETE FROM ${this.tableName} WHERE id = $1`;
     try {
-      const result: QueryResult = await this.database.query(query, [uuid]);
+      const result: QueryResult = await this.database.query(query, [id]);
       return result.rowCount !== null && result.rowCount > 0;
     } catch (error: any) {
       throw new Error(`Error deleting from ${this.tableName}: ${error.message}`);
@@ -63,10 +63,10 @@ export abstract class PostgresRepository<T extends IEntity> implements BaseRepos
     }
   }
 
-  async findOne(uuid: string | number): Promise<T> {
-    const query = `SELECT * FROM ${this.tableName} WHERE uuid = $1`;
+  async findOne(id: string | number): Promise<T> {
+    const query = `SELECT * FROM ${this.tableName} WHERE id = $1`;
     try {
-      const result: QueryResult = await this.database.query(query, [uuid]);
+      const result: QueryResult = await this.database.query(query, [id]);
       if (!result.rows[0]) throw new Error("Record not found");
       return this.docToEntity(result.rows[0]);
     } catch (error: any) {

@@ -83,15 +83,15 @@ sampleModuleRouter.get("/", async (req: Request, res: Response) => {
   }
 });
 
-sampleModuleRouter.get("/:uuid", async (req: Request, res: Response) => {
+sampleModuleRouter.get("/:id", async (req: Request, res: Response) => {
   try {
-    const uuid = req.params.uuid;
+    const id = req.params.id;
 
-    if (!uuid) {
-      throw new Error("UUID is required.");
+    if (!id) {
+      throw new Error("id is required.");
     }
 
-    const payload = await sampleModuleController.getOne(uuid);
+    const payload = await sampleModuleController.getOne(id);
 
     if (!payload) {
       throw new Error("Resource not found.");
@@ -115,12 +115,12 @@ sampleModuleRouter.get("/:uuid", async (req: Request, res: Response) => {
 });
 
 
-sampleModuleRouter.delete("/:uuid", async (req: Request, res: Response) => {
+sampleModuleRouter.delete("/:id", async (req: Request, res: Response) => {
   try {
-    const uuid = req.params.uuid;
+    const id = req.params.id;
 
-    if (!uuid) throw new Error("UUID needed");
-    await sampleModuleController.deleteSampleModule(uuid);
+    if (!id) throw new Error("id needed");
+    await sampleModuleController.deleteSampleModule(id);
 
     return sendSuccessResponse({
       type: ResponseType.HTTP,

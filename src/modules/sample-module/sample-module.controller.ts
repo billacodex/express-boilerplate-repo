@@ -14,14 +14,14 @@ export class SampleModuleController {
 
   async updateSampleModule(updatedSampleModule: SampleModuleRequest) {
     const sampleModule = SampleModuleEntity.fromRequest(updatedSampleModule);
-    return await this.sampleModuleRepository.update(sampleModule.uuid, sampleModule);
+    return await this.sampleModuleRepository.update(sampleModule.id, sampleModule);
   }
 
-  async deleteSampleModule(uuid: string) {
-    const sampleModule = await this.sampleModuleRepository.findOne(uuid);
+  async deleteSampleModule(id: string) {
+    const sampleModule = await this.sampleModuleRepository.findOne(id);
     if (!sampleModule) throw new Error("<SampleModule> not found in database !!!");
 
-    await this.sampleModuleRepository.delete(uuid);
+    await this.sampleModuleRepository.delete(id);
   }
 
   async getAll() {
@@ -32,8 +32,8 @@ export class SampleModuleController {
     return sampleModules.map((sampleModule: SampleModuleEntity) => sampleModule.toTransformedObject());
   }
 
-  async getOne(uuid: string) {
-    const sampleModule: SampleModuleEntity = await this.sampleModuleRepository.findOne(uuid);
+  async getOne(id: string) {
+    const sampleModule: SampleModuleEntity = await this.sampleModuleRepository.findOne(id);
 
     return sampleModule.toTransformedObject();
   }

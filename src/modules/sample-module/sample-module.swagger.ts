@@ -32,7 +32,7 @@
  *       example:
  *         success: true
  *         data:
- *           uuid: "123e4567-e89b-12d3-a456-426614174000"
+ *           id: "123e4567-e89b-12d3-a456-426614174000"
  *
  *     ErrorResponse:
  *       type: object
@@ -136,18 +136,18 @@
 
 /**
  * @swagger
- * /sample-module/{uuid}:
+ * /sample-module/{id}:
  *   get:
- *     summary: Get a sampleModule by UUID
+ *     summary: Get a sampleModule by id
  *     tags: [sampleModule]
  *     parameters:
  *       - in: path
- *         name: uuid
+ *         name: id
  *         schema:
  *           type: string
- *           format: uuid
+ *           format: id
  *         required: true
- *         description: SampleModule UUID
+ *         description: SampleModule id
  *     responses:
  *       200:
  *         description: SampleModule details
@@ -173,12 +173,12 @@
  *     tags: [sampleModule]
  *     parameters:
  *       - in: path
- *         name: uuid
+ *         name: id
  *         schema:
  *           type: string
- *           format: uuid
+ *           format: id
  *         required: true
- *         description: SampleModule UUID
+ *         description: SampleModule id
  *     responses:
  *       200:
  *         description: SampleModule deleted successfully
