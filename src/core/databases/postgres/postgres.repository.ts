@@ -1,9 +1,9 @@
 import {Pool, QueryResult} from "pg";
 import {BaseRepository} from "../base.repository";
-import {IEntity} from "../../entity/entity.interface";
 import configurations from "../../../server-config/configurations";
+import { BaseEntity } from "../../models/response/base.entity";
 
-export abstract class PostgresRepository<T extends IEntity> implements BaseRepository<T> {
+export abstract class PostgresRepository<T extends BaseEntity<T>> implements BaseRepository<T> {
   protected database: Pool;
   protected tableName: string;
 
